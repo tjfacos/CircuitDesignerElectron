@@ -1,0 +1,13 @@
+{
+  "name": "epq_circuit_designer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Thomas Facos",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {}
+}

@@ -1,0 +1,89 @@
+
+.component {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    /* background-color: var(--toolbarBackground); */
+    
+    /* Border */
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #6f6818;
+    border-radius: 25px;
+
+
+    margin: 0;
+    padding: 0;
+    height: 60px;
+    width: 60px;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.component:hover {
+    border-color: var(--accent);
+    cursor: move;
+    box-shadow: 2px 2px black;
+}
+
+.component img {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    padding: 0px;
+    filter: invert(90%);
+}
+
+.selectedComponent {
+    border-color: blue;
+    box-shadow: 5px 5px black;
+}
+
+.selectedComponent:hover {
+    border-color: lightskyblue;
+    box-shadow: 10px 10px black;
+}
+
+.component.isBeingAdded {
+    box-shadow: 15px 15px black;
+}
+
+
+.component.rotated {
+    transform: rotate(90deg);
+}
+
+/* Resistor Styles are default. Use .resistor to override them*/
+
+
+/* Bulb Styles */
+.bulb {
+    height: 60px;
+    width: 120px;
+}
+
+.bulb img {
+    height: 40px;
+    width: 120px;
+    padding-top: 10px;
+
+}
+
+/* Cell Styles are also default. */
+
+
+/* Wires, Ports, and Connections */
+
+.port {
+    position: absolute;
+    border-radius: 50%;
+    background-color: blue;
+    filter: opacity(50%);
+    height: 20px;
+    width: 20px;
+    z-index: 5; 
+}
+
+.wire canvas {
+    position: absolute;
+}
