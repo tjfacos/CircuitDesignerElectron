@@ -33,3 +33,7 @@ body {
 img {
     user-select: none;
 }
+
+#cnv {
+    position: relative;
+}

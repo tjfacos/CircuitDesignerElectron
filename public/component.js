@@ -4,6 +4,7 @@ var ComponentCounters = {
     "resistor": 1,
     "bulb": 1,
     "cell": 1,
+    "wire": 1
 };
 
 var SelectedElement = null;

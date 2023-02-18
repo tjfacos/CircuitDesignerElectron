@@ -49,3 +49,11 @@ const drawGrid = () => {
 
     return;
 }
+
+var wireList = []
+
+const updateGrid = () => {
+    wireList.forEach((wire) => {
+        wire["draw-method"](...wire["arguments"]);
+    })
+}

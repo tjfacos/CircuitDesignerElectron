@@ -8,6 +8,7 @@ class WireSection {
         
         this.div = document.createElement("div")
         this.div.classList.add("wire")
+        this.div.id = "wire" + ComponentCounters["wire"]++
     
         this.addPorts()
         this.addToCanvas()
@@ -66,14 +67,25 @@ class WireSection {
         ctx.strokeStyle = "white"
         ctx.lineWidth = 10
 
-        ctx.beginPath()
 
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x2, y1)
-        ctx.lineTo(x2, y2)
-        ctx.stroke();
-        
-        ctx.closePath()
+        wireList.push(
+            {
+                "draw-method": (x1, y1, x2, y2) => {
+                    ctx.beginPath()
+                    
+                    ctx.moveTo(x1, y1)
+                    ctx.lineTo(x2, y1)
+                    ctx.lineTo(x2, y2)
+                    ctx.stroke();
+                    
+                    ctx.closePath()},
+                
+                "wire-id": this.div.id,
+                "arguments": [x1, y1, x2, y2]                
+            }
+        )
+
+        updateGrid()
     }
     
     
