@@ -76,12 +76,19 @@
 
 .joint {
     position: absolute;
-    border-radius: 50%;
+    border-radius: 20%;
     background-color: blue;
-    filter: opacity(50%);
+    transform: rotate(45deg);
+    /* filter: opacity(50%); */
     height: 20px;
     width: 20px;
     z-index: 5; 
+    transition: background-color 200ms ease;
+}
+
+.joint:hover {
+    background-color: lightskyblue;
+    box-shadow: 5px 5px black;
 }
 
 .wire canvas {
