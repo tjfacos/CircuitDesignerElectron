@@ -186,7 +186,7 @@ const addComponent = (type) => {
     if (type == "Cell") {
         component = new Cell(type);
     } else if (type == "wire") {
-        component = new WireSection()
+        component = new Wire()
     } else {
         component = new Component(type);
     }
@@ -214,11 +214,3 @@ const RotateComponent = () => {
         }
     })
 }
-
-document.addEventListener('keydown', (e) => {
-    if (e.key == "r") {
-        RotateComponent()
-    } else if (e.key === "Delete") {
-        DeleteComponent()
-    }
-})
