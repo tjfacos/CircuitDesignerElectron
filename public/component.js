@@ -200,9 +200,16 @@ const addComponent = (type) => {
 const DeleteComponent = () => {
     componentArray.forEach((item, index) => {
         if (item.selected) {
+            
+            if (item.div.id.contains("wire")) { //If component is a wire it needs to be deleted from the drae list
+                item.DeleteWire()
+            }
+
             console.log(`Deleting ${item.div.id}...`)
             item.div.remove();
             componentArray.splice(index, 1);
+            
+
         }
     })
 }

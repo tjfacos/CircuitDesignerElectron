@@ -6,6 +6,7 @@ class Wire {
         this.joints = [];
         this.orientation = 0; // 0 will be horizontal, 1 will be vertical
         this.connectedItems = []
+        this.selected = false
         
         this.div = document.createElement("div")
         this.div.classList.add("wire")
@@ -53,6 +54,8 @@ class Wire {
                 overlay.style.display = "none"
                 document.onmousemove = () => {}
                 document.onclick = () => {}
+                this.addControls()
+                componentArray.append()
             }
         }
     }
@@ -122,7 +125,51 @@ class Wire {
         updateGrid()
     }
     
-    
+    addControls() {
+        var deleteBtn = document.getElementById("delete-button");
+        
+        const HandleSelect = () => {
+            console.log(`${this.div.id} selected...`)
+            this.div.classList.toggle("selectedComponent")
+            deleteBtn.style.display = "block";
+            this.selected = true;
+        }
+        
+        this.joints.forEach((joint) => {
+            
+            joint.addEventListener("dblclick", HandleSelect)
+            
+            document.addEventListener('click', (e) => {
+                
+                if (!( joint.contains(e.target) || deleteBtn.contains(e.target) ) && this.selected ) {
+                    this.div.classList.toggle("selectedComponent")
+                    deleteBtn.style.display = "none";
+                    this.selected = false
+                }
+            
+            })
+
+
+        })
+        
+        
+
+    }
+
+    DeleteWire() {
+        // Remove wire draw on canvas
+        wireMap.delete(this.div.id)
+        updateGrid()
+        
+        
+        // In future, add logic to delete connections here
+    }
+
+
+
+
+
+
     
     
     
