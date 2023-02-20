@@ -193,7 +193,7 @@ const addComponent = (type) => {
         // component.Realise(window.innerWidth + 100, window.innerHeight + 100)
 
     } else {
-        component = new Component(type);
+        component = new LoadComponent(type);
     }
     componentArray.push(component);
 
@@ -207,11 +207,14 @@ const DeleteComponent = () => {
         if (item.selected) {
             
             console.log(`Deleting Component ${item.div.id}...`)
-            await item.div.remove();
             
+            if (item.div.classList.contains("wire")) {
+                await item.destroy()
+            } else {
+                await item.div.remove();
+            }    
 
             componentArray.splice(index, 1);
-            
             
             console.log("Delete Procedure finished... ")
         }
@@ -276,7 +279,7 @@ const createWire = () => {
         }
         
     }
-    
+
     var container = document.createElement("div")
     container.id = wireName + "-container"
     container.classList.add("wire-container")
@@ -304,6 +307,7 @@ const createWire = () => {
         joint1.style.left = (x1-joint1.clientWidth/2) + "px";
         joint1.style.top = (y1-joint1.clientHeight/2) + "px";
     }
+
     document.onclick = (e) => {
         document.onmousemove = (e) => {
             [x2, y2] = positionWireToLine(x1, y1, e.pageX, e.pageY)
@@ -333,10 +337,10 @@ const createWire = () => {
                 length = Math.abs(y2-y1)
             }
             wire.Realise(left, top, length, orientation)
-            
-            
         }
     }
+
+    return wire
 
 }
 
@@ -373,6 +377,48 @@ class Wire {
         
         this.div.style.left = left + "px"
         this.div.style.top = top + "px"
+
+        this.addControls()
+    }
+
+    addControls () {
+        
+        console.log("Adding controls...")
+        
+        var element = this.div;
+        var [joint1, joint2] = this.joints
+        var deleteBtn = document.getElementById("delete-button");
+
+        // Add event listener to bring up controls on double-click
+        const clickHandler = () => {
+            console.log(`${element.id} selected...`)
+            element.classList.toggle("selectedComponent")
+            joint1.classList.toggle("selectedComponent")
+            joint2.classList.toggle("selectedComponent")
+            deleteBtn.style.display = "block";
+            this.selected = true;
+        }
+        
+        element.addEventListener("dblclick", clickHandler)
+        joint1.addEventListener("dblclick", clickHandler)
+        joint2.addEventListener("dblclick", clickHandler)
+
+        document.addEventListener('click', (e) => {
+            if (!( element.contains(e.target) || deleteBtn.contains(e.target)) && this.selected ) {
+                element.classList.toggle("selectedComponent")
+                joint1.classList.toggle("selectedComponent")
+                joint2.classList.toggle("selectedComponent")
+                deleteBtn.style.display = "none";
+                this.selected = false
+            }
+        })
+    }
+
+    destroy() {
+        document.getElementById(this.div.id + "-container").remove()
+        this.div.remove()
+        this.joints[0].remove()
+        this.joints[1].remove()
     }
 
 }
