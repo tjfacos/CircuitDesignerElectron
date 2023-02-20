@@ -55,7 +55,6 @@ class Wire {
                 document.onmousemove = () => {}
                 document.onclick = () => {}
                 this.addControls()
-                componentArray.append()
             }
         }
     }
@@ -157,8 +156,17 @@ class Wire {
     }
 
     DeleteWire() {
+        
+        console.log("Called DeleteWire... ")
+        
         // Remove wire draw on canvas
         wireMap.delete(this.div.id)
+        
+        // Clear and Redraw Grid
+        ClearGrid()
+        drawGrid()
+        
+        
         updateGrid()
         
         
@@ -194,12 +202,16 @@ class Wire {
 var wireMap = new Map()
 
 const updateGrid = () => {
-    let cnv = document.getElementById("cnv")
-    ctx = cnv.getContext("2d")
     
     wireMap.forEach((wire) => {
         wire["draw-method"](...wire["arguments"]);
     })
-    
+}
+
+const ClearGrid = () => {
+    let cnv = document.getElementById("cnv")
+    let ctx = cnv.getContext("2d")
+
+    ctx.clearRect(0,0, cnv.width, cnv.height)
     
 }

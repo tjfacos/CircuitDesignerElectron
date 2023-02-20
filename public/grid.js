@@ -17,7 +17,7 @@ const drawGrid = () => {
     let ctx = cnv.getContext('2d');
 
     ctx.strokeStyle = lineOptions.colour;
-    ctx.lineWidth = 0.1;
+    ctx.lineWidth = 1;
     
     ctx.beginPath();
 
