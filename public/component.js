@@ -186,7 +186,12 @@ const addComponent = (type) => {
     if (type == "Cell") {
         component = new Cell(type);
     } else if (type == "wire") {
-        component = new Wire()
+        // component = new Wire()
+
+        // window.scroll(window.innerWidth, window.innerHeight)
+        component = createWire()
+        // component.Realise(window.innerWidth + 100, window.innerHeight + 100)
+
     } else {
         component = new Component(type);
     }
@@ -201,26 +206,14 @@ const DeleteComponent = () => {
     componentArray.forEach(async (item, index) => {
         if (item.selected) {
             
-            let isWire = false
-
-            if (item.div.classList.contains("wire")) { //If component is a wire it needs to be deleted from the drae list
-                console.log("Is wire")
-                isWire = true;
-            }
-
             console.log(`Deleting Component ${item.div.id}...`)
             await item.div.remove();
             
-            if (isWire){
-                await item.DeleteWire()
-            }
 
-            await updateGrid()
-
-            console.log("Delete Procedure finished... ")
             componentArray.splice(index, 1);
             
-
+            
+            console.log("Delete Procedure finished... ")
         }
     })
 }
@@ -232,3 +225,161 @@ const RotateComponent = () => {
         }
     })
 }
+
+
+const createWire = () => {
+    
+    const wireName = "wire" + ComponentCounters["wire"]++;
+    
+    const createJoint = () => {
+        let joint = document.createElement("div")
+        joint.classList.add("joint")
+        container.append(joint)
+        return joint
+    }
+    
+    const placeToGrid = (x, y) => {
+        let cellsize = 30;
+        let NewCoords = []
+
+        let coords = [x , y]
+        coords.forEach(coord => {
+            let up = Math.ceil(coord/cellsize)*cellsize;
+            let down = Math.floor(coord/cellsize)*cellsize;
+            NewCoords.push(( Math.abs(coord - up) < Math.abs(coord - down) ? up : down))
+        });
+    
+        return NewCoords;
+    }
+    
+    const positionWireToLine = (X1, Y1, X2, Y2) => {
+        const [x2,y2] = placeToGrid(X2, Y2)
+        let x1 = X1
+        let y1 = Y1
+        
+        let deltaX = Math.abs(x2-x1)
+        let deltaY = Math.abs(y2-y1)
+        
+        var orientation;
+        if (deltaX > deltaY) {
+            orientation = "horizontal"
+        } else {
+            orientation = "vertical"
+        } 
+        
+        console.log(orientation)
+        
+        if (orientation == "horizontal") { //Horizontal
+            return [x2, y1]
+        } else { //Vertical
+            return [x1, y2]
+        }
+        
+    }
+    
+    var container = document.createElement("div")
+    container.id = wireName + "-container"
+    container.classList.add("wire-container")
+    document.getElementById("component-container").append(container)
+    
+    let joints = [createJoint(), createJoint()]
+    
+    const thickness = 10
+    var wire = new Wire(joints, thickness, wireName)
+
+    
+    wire.addToContainer()
+    
+    
+    // Start Placement
+    let overlay = document.getElementById("overlay")
+    overlay.style.display = "block"
+    
+    var [joint1, joint2] = joints
+    
+    var x1, y1, x2, y2
+    
+    document.onmousemove = (e) => {
+        [x1, y1] = placeToGrid(e.pageX, e.pageY)
+        joint1.style.left = (x1-joint1.clientWidth/2) + "px";
+        joint1.style.top = (y1-joint1.clientHeight/2) + "px";
+    }
+    document.onclick = (e) => {
+        document.onmousemove = (e) => {
+            [x2, y2] = positionWireToLine(x1, y1, e.pageX, e.pageY)
+            joint2.style.left = (x2-joint1.clientWidth/2) + "px";
+            joint2.style.top = (y2-joint1.clientHeight/2) + "px";
+        }
+        document.onclick = (e) => {
+            overlay.style.display = "none"
+            document.onmousemove = () => {}
+            document.onclick = () => {}
+
+            
+            // Figure out where to draw the div
+            
+            var length, top, left, orientation
+            if (y1 == y2) {
+                // wire is horizontal
+                orientation = "horizontal"
+                top = y1-thickness/2
+                left = (x1 < x2 ? x1 : x2)
+                length = Math.abs(x2-x1)
+            } else {
+                //wire is vertical
+                orientation = "vertical"
+                left = x1-thickness/2
+                top = (y1 < y2 ? y1 : y2)
+                length = Math.abs(y2-y1)
+            }
+            wire.Realise(left, top, length, orientation)
+            
+            
+        }
+    }
+
+}
+
+
+
+
+class Wire {
+    constructor(joints, thickness, name) {
+        this.type = "wire";
+        this.div = document.createElement("DIV")
+        this.connections = [];
+        this.thickness = thickness
+        
+        this.div.id = name;
+        this.div.classList.add("component");
+        this.div.classList.add("wire");
+
+        this.joints = joints
+    }
+    
+    addToContainer() { document.getElementById(this.div.id + "-container").append(this.div) }
+    
+    Realise(left, top, length, orientation) {
+        
+        
+        if (orientation == "horizontal") {
+            this.div.style.width = length + "px";
+            this.div.style.height = this.thickness + "px";
+        } else {
+            this.div.style.width = this.thickness + "px";
+            this.div.style.height = length + "px";
+        }
+        
+        
+        this.div.style.left = left + "px"
+        this.div.style.top = top + "px"
+    }
+
+}
+
+
+
+
+
+
+

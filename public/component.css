@@ -20,6 +20,7 @@
     transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
+
 .component:hover {
     border-color: var(--accent);
     cursor: move;
@@ -91,6 +92,10 @@
     box-shadow: 5px 5px black;
 }
 
-.wire canvas {
-    position: absolute;
+.wire {
+    /* width: 30px; */
+    height: 10px;
+    background-color: white;
+    border: none;
+    border-radius: 0;
 }
