@@ -103,6 +103,13 @@ class Wire {
         
         let wireObj = {
                 "draw-method": (x1, y1, x2, y2) => {
+                    
+                    console.log(`Drawing ${this.div.id}...`)
+                    
+                    var cnv = document.getElementById("cnv")
+                    var ctx = cnv.getContext("2d")
+
+
                     ctx.beginPath()
                     
                     ctx.moveTo(x1, y1)
@@ -111,16 +118,16 @@ class Wire {
                     ctx.stroke();
                     
                     ctx.closePath()},
-                
+                    
                 "wire-id": this.div.id,
                 "arguments": [x1, y1, x2, y2]                
             }
-        
-        
-        let wireKey = this.div.id
-        wireMap.set(wireKey, wireObj)
             
-
+            
+            let wireKey = this.div.id
+            wireMap.set(wireKey, wireObj)
+            
+            
         updateGrid()
     }
     
@@ -154,7 +161,7 @@ class Wire {
         
 
     }
-
+    
     DeleteWire() {
         
         console.log("Called DeleteWire... ")
@@ -173,11 +180,11 @@ class Wire {
         // In future, add logic to delete connections here
     }
 
-
-
-
-
-
+    
+    
+    
+    
+    
     
     
     
@@ -185,23 +192,24 @@ class Wire {
     placeToGrid(x, y) {
         let cellsize = 30;
         let NewCoords = []
-
+        
         let coords = [x , y]
         coords.forEach(coord => {
             let up = Math.ceil(coord/cellsize)*cellsize;
             let down = Math.floor(coord/cellsize)*cellsize;
             NewCoords.push(( Math.abs(coord - up) < Math.abs(coord - down) ? up : down))
         });
-    
+        
         return NewCoords;
     }
-
+    
 }
 
 
 var wireMap = new Map()
 
 const updateGrid = () => {
+    console.log(wireMap)
     
     wireMap.forEach((wire) => {
         wire["draw-method"](...wire["arguments"]);
@@ -211,7 +219,7 @@ const updateGrid = () => {
 const ClearGrid = () => {
     let cnv = document.getElementById("cnv")
     let ctx = cnv.getContext("2d")
-
+    
     ctx.clearRect(0,0, cnv.width, cnv.height)
     
 }

@@ -198,15 +198,26 @@ const addComponent = (type) => {
 
 
 const DeleteComponent = () => {
-    componentArray.forEach((item, index) => {
+    componentArray.forEach(async (item, index) => {
         if (item.selected) {
             
+            let isWire = false
+
             if (item.div.classList.contains("wire")) { //If component is a wire it needs to be deleted from the drae list
-                item.DeleteWire()
+                console.log("Is wire")
+                isWire = true;
             }
 
-            console.log(`Deleting ${item.div.id}...`)
-            item.div.remove();
+            console.log(`Deleting Component ${item.div.id}...`)
+            await item.div.remove();
+            
+            if (isWire){
+                await item.DeleteWire()
+            }
+
+            await updateGrid()
+
+            console.log("Delete Procedure finished... ")
             componentArray.splice(index, 1);
             
 

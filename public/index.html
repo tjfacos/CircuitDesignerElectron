@@ -12,11 +12,6 @@
     <link rel="stylesheet" href="component.css">
     <link rel="stylesheet" href="editor.css">
     
-    <!-- JavaScript -->
-    <script type="text/javascript" src="component.js"></script>
-    <script type="text/javascript" src="grid.js"></script>
-    <script type="text/javascript" src="initialise.js"></script>
-    <script type="text/javascript" src="wire.js"></script>
     
     <!-- Links -->
     <link rel="icon" href="../assets/icons/favicon.ico" type="image/x-icon">
@@ -36,7 +31,7 @@
 
 
     <div id="toolbar">
-    
+      
       <div id="components-list">
         <div id="logo">
           <img id="logo-img" src="../assets/icons/circuit.png" alt="Electronic Circuit" draggable="false">
@@ -71,16 +66,26 @@
       <!-- You could add Settings/ Light/Dark mode button etc. in here at the bottom of the div -->
 
     </div>
-
+    
     <div id="overlay"></div>
-
+    
     <button class="control-button" id="rotate-button" onclick="RotateComponent()">
       <img src="../assets/graphics/rotate.svg" alt="Rotate 90deg">
     </button>
     <button class="control-button" id="delete-button" onclick="DeleteComponent()">
       <img src="../assets/graphics/delete.svg" alt="Delete Component">
     </button>
+
+
+
+
+
+    <!-- JavaScript -->
+    <script type="text/javascript" src="grid.js"></script>
+    <script type="text/javascript" src="initialise.js"></script>
+    <script type="text/javascript" src="component.js"></script>
+    <script type="text/javascript" src="wire.js"></script>
   </body>
-</html>
+  </html>
 
 

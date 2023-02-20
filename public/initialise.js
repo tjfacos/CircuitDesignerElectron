@@ -17,3 +17,6 @@ const initialise = () => {
     })
     
 }
+
+var cnv = document.getElementById("cnv")
+var ctx = cnv.getContext("2d")
