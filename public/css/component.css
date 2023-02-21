@@ -79,25 +79,28 @@
     position: absolute;
     border-radius: 20%;
     background-color: blue;
-    transform: rotate(45deg);
+    /* transform: rotate(45deg); */
     /* filter: opacity(50%); */
     height: 20px;
     width: 20px;
     z-index: 5; 
-    transition: background-color 200ms ease, box-shadow 200ms ease;
+    transition: background-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
 }
 
 .joint:hover {
     background-color: lightskyblue;
     box-shadow: 5px 5px black;
+    transform: rotate(45deg);
 }
 
 .wire {
     height: 10px;
     background-color: white;
-    border-style: solid;
+    border-style: none;
     border-radius: 0;
     transition: background-color 200ms ease, box-shadow 200ms ease;
+    margin: 0px;
+    padding: 0px;
 }
 
 .wire:hover {
