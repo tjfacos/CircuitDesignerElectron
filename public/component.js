@@ -13,7 +13,8 @@ class Component {
     constructor (type) {
         this.type = type;
         this.div = document.createElement("DIV")
-        this.connections = [];
+        this.connections = []
+        this.ports = []
         
         this.div.id = type + ComponentCounters[type]++;
         this.div.classList.add("component");
@@ -22,17 +23,18 @@ class Component {
         
         this.selected = false;
         this.placed = false;
-
+        
         this.addIcon();
         
         this.addToCanvas();
-
+        
         
     }
     
     addToCanvas() {
         let element = this.div
         document.getElementById("component-container").append(element);
+        this.addPorts();
         var overlay = document.getElementById("overlay")
         
         // Start Placement
@@ -84,6 +86,31 @@ class Component {
     
     addPorts() {
         
+        const createPort = (i) => {
+            
+            
+            let port = document.createElement("div")
+            port.classList.add("joint")
+            port.classList.add("port")
+            this.div.append(port)
+            
+            console.log(`i: ${i}`)
+            // console.log(this.div.style.height/2 - port.clientHeight/2)
+            // console.log(this.div.style.width * i)
+            
+            port.style.position = "absolute"
+            port.style.top = (this.div.clientHeight/2 - port.clientHeight/2) + "px"
+            port.style.left = (this.div.clientWidth * i - port.clientWidth/2) + "px"
+            
+            return port
+        }
+
+        for (var i = 0; i < 2; i++){ this.ports.push( createPort(i) ) }
+
+
+
+
+
     }
     
     addMovement() {
@@ -142,7 +169,6 @@ class Component {
     }
     
     rotate() {
-        // console.log("blah")
         this.div.classList.toggle("rotated")
     }
 
@@ -230,6 +256,20 @@ const RotateComponent = () => {
 }
 
 
+
+// Wire Stuff
+
+
+
+
+
+
+
+
+
+
+
+
 const createWire = () => {
     
     const wireName = "wire" + ComponentCounters["wire"]++;
@@ -315,6 +355,11 @@ const createWire = () => {
             joint2.style.top = (y2-joint1.clientHeight/2) + "px";
         }
         document.onclick = (e) => {
+            
+            if (x1 == x2 && y1 == y2) {
+                return;
+            }
+            
             overlay.style.display = "none"
             document.onmousemove = () => {}
             document.onclick = () => {}
