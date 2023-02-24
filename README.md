@@ -22,4 +22,4 @@ It is powered and implemented with:
 ## Current State (updated 24/02/2023)
 The program is unfinished, and can best be described at this stage as a limited circuit drawing simulator.
 
-A version of the current program interface is hosted here: https://tjfacos.github.io/CircuitDesignerWebDemo/public/
+A version of the current program interface is hosted here: https://tjfacos.github.io/CircuitDesignerElectron/public/
