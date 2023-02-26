@@ -41,16 +41,3 @@ button {
 #cnv {
     position: relative;
 }
-
-#background-logo {
-    position: absolute;
-    z-index: -10;
-    opacity: 0.2;
-    margin: 0;
-    padding: 0;
-    top: 120vh;
-    left: calc(150vw - 30vh);
-    width: 60vh;
-    height: 60vh;
-
-}
