@@ -36,13 +36,13 @@ class Component {
         var x = this.div.offsetLeft
         var y = this.div.offsetTop
 
-        console.log(x)
-        console.log(y)
+        // console.log(x)
+        // console.log(y)
         
         if (this.div.classList.contains("rotated")) {
-
+            // console.log("Vertical")
         } else {
-
+            // console.log("Horizontal")
         }
     }
 
@@ -95,7 +95,7 @@ class Component {
     }
     
     addHandlers(){
-        this.setPortCoords();
+        // this.setPortCoords();
         this.addMovement()
         this.addControls();
     }
@@ -151,7 +151,7 @@ class Component {
         document.onmouseup = () => {
             document.onmousemove = (e) => {}
             SelectedElement = null;
-            this.setPortCoords();
+            SetAllPortCoords()
         }
         
     }
@@ -185,6 +185,7 @@ class Component {
     
     rotate() {
         this.div.classList.toggle("rotated")
+        SetAllPortCoords()
     }
 
     placeToGrid(x, y) {
@@ -269,6 +270,14 @@ const RotateComponent = () => {
         }
     })
 }
+
+
+const SetAllPortCoords = () => {
+    componentArray.forEach((item) => {
+        item.setPortCoords()
+    })
+}
+
 
 
 
