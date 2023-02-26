@@ -15,6 +15,7 @@ class Component {
         this.div = document.createElement("DIV")
         this.connections = []
         this.ports = []
+        this.portCoords = []
         
         this.div.id = type + ComponentCounters[type]++;
         this.div.classList.add("component");
@@ -31,6 +32,20 @@ class Component {
         
     }
     
+    setPortCoords() {
+        var x = this.div.offsetLeft
+        var y = this.div.offsetTop
+
+        console.log(x)
+        console.log(y)
+        
+        if (this.div.classList.contains("rotated")) {
+
+        } else {
+
+        }
+    }
+
     addToCanvas() {
         let element = this.div
         document.getElementById("component-container").append(element);
@@ -64,7 +79,7 @@ class Component {
                 this.addHandlers();
             }
         }
-
+        
     }
     
     addIcon() {
@@ -80,6 +95,7 @@ class Component {
     }
     
     addHandlers(){
+        this.setPortCoords();
         this.addMovement()
         this.addControls();
     }
@@ -104,13 +120,11 @@ class Component {
             
             return port
         }
-
+        
         for (var i = 0; i < 2; i++){ this.ports.push( createPort(i) ) }
-
-
-
-
-
+        
+                
+        
     }
     
     addMovement() {
@@ -123,20 +137,21 @@ class Component {
             document.onmousemove = (e) => {
                 
                 let x = e.pageX;
-                    let y = e.pageY;
-                    
-                    let lockedCoords = this.placeToGrid(x , y);
-                    x = lockedCoords[0];
-                    y = lockedCoords[1];
-    
-                    SelectedElement.style.left = (x-SelectedElement.clientWidth/2) + "px";
-                    SelectedElement.style.top = (y-SelectedElement.clientHeight/2) + "px";
+                let y = e.pageY;
+                
+                let lockedCoords = this.placeToGrid(x , y);
+                x = lockedCoords[0];
+                y = lockedCoords[1];
+
+                SelectedElement.style.left = (x-SelectedElement.clientWidth/2) + "px";
+                SelectedElement.style.top = (y-SelectedElement.clientHeight/2) + "px";
             }   
         })
     
         document.onmouseup = () => {
             document.onmousemove = (e) => {}
             SelectedElement = null;
+            this.setPortCoords();
         }
         
     }
@@ -403,7 +418,7 @@ class Wire {
         this.div.classList.add("component");
         this.div.classList.add("wire");
 
-        this.joints = joints
+        this.ports = joints
     }
     
     addToContainer() { document.getElementById(this.div.id + "-container").append(this.div) }
@@ -431,7 +446,7 @@ class Wire {
         console.log("Adding controls...")
         
         var element = this.div;
-        var [joint1, joint2] = this.joints
+        var [joint1, joint2] = this.ports
         var deleteBtn = document.getElementById("delete-button");
 
         // Add event listener to bring up controls on double-click
@@ -462,8 +477,8 @@ class Wire {
     destroy() {
         document.getElementById(this.div.id + "-container").remove()
         this.div.remove()
-        this.joints[0].remove()
-        this.joints[1].remove()
+        this.ports[0].remove()
+        this.ports[1].remove()
     }
 
 }
