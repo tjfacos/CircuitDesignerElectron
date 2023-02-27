@@ -35,15 +35,18 @@ class Component {
     setPortCoords() {
         var x = this.div.offsetLeft
         var y = this.div.offsetTop
-
-        // console.log(x)
-        // console.log(y)
+        let width = Math.round(this.div.offsetWidth / 10) * 10
+        let height = Math.round(this.div.offsetHeight / 10) * 10
         
+        console.log(`${this.div.id}: ${width} ${height}`)
+
         if (this.div.classList.contains("rotated")) {
-            // console.log("Vertical")
+            console.log("Vertical")
         } else {
-            // console.log("Horizontal")
+            console.log("Horizontal")
         }
+        
+        
     }
 
     addToCanvas() {
