@@ -360,7 +360,7 @@ const createWire = () => {
             orientation = "vertical"
         } 
         
-        console.log(orientation)
+        // console.log(orientation)
         
         if (orientation == "horizontal") { //Horizontal
             return [x2, y1]
@@ -431,6 +431,11 @@ const createWire = () => {
                 top = (y1 < y2 ? y1 : y2)
                 length = Math.abs(y2-y1)
             }
+            wire.portCoords = [
+                [x1, y1],
+                [x2, y2]
+            ]
+            console.log(wire.portCoords)
             wire.Realise(left, top, length, orientation)
         }
     }
@@ -448,6 +453,7 @@ class Wire {
         this.div = document.createElement("DIV")
         this.connections = [];
         this.thickness = thickness
+        this.portCoords = []
         
         this.div.id = name;
         this.div.classList.add("component");
