@@ -38,12 +38,15 @@ class Component {
         let width = Math.round(this.div.offsetWidth / 10) * 10
         let height = Math.round(this.div.offsetHeight / 10) * 10
         
-        console.log(`${this.div.id}: ${width} ${height}`)
+        console.log(`${this.div.id}: ${width} ${height}, [${x}, ${y}]`)
 
         if (this.div.classList.contains("rotated")) {
             console.log("Vertical")
+            this.portCoords.push([x, y+height/2])
+            this.portCoords.push([x+width,y+height/2])
         } else {
-            console.log("Horizontal")
+            this.portCoords.push([x+width/2, y])
+            this.portCoords.push([x+width/2, y+height])
         }
         
         
