@@ -16,6 +16,8 @@ class Component {
         this.connections = []
         this.ports = []
         this.portCoords = []
+        this.width = 0
+        this.height = 0
         
         this.div.id = type + ComponentCounters[type]++;
         this.div.classList.add("component");
@@ -35,23 +37,30 @@ class Component {
     setPortCoords() {
         var x = this.div.offsetLeft
         var y = this.div.offsetTop
-        let width = Math.round(this.div.offsetWidth / 10) * 10
-        let height = Math.round(this.div.offsetHeight / 10) * 10
         
-        this.portCoords = []
+        let width = this.width
+        let height = this.height
+        let centre = [x+width/2, y+height/2]
 
-        console.log(`${this.div.id}: ${width} ${height}, [${x}, ${y}]`)
+        // console.log(`Centre: ${centre}`)
+        // console.log(`${this.div.id}: ${width} ${height}, [${x}, ${y}]`)
+        
+        let port1 = [x+width/2, y+height/2]
+        let port2 = [x+width/2, y+height/2]
 
         if (this.div.classList.contains("rotated")) {
-            console.log("Vertical (x-values should be equal)")
-            this.portCoords.push([x+width/2, y])
-            this.portCoords.push([x+width/2, y+height])
+            // console.log("Vertical")
+            port1[1] -= width/2
+            port2[1] += width/2
         } else {
-            console.log("Horizontal (y-values should be equal)")
-            this.portCoords.push([x, y+height/2])
-            this.portCoords.push([x+width,y+height/2])
+            // console.log("Horizontal")
+            port1[0] -= width/2
+            port2[0] += width/2
         }
-        console.log(this.portCoords)
+        
+        this.portCoords = [port1, port2]
+
+        // console.log(this.portCoords)
         
     }
 
@@ -85,6 +94,11 @@ class Component {
                 element.classList.remove("isBeingAdded")
                 document.onmousemove = () => {}
                 document.onmousedown = () => {};
+                
+                this.width = Math.round(this.div.offsetWidth / 10) * 10
+                this.height = Math.round(this.div.offsetHeight / 10) * 10
+                
+                SetAllPortCoords()
                 this.addHandlers();
             }
         }
@@ -155,13 +169,16 @@ class Component {
                 SelectedElement.style.left = (x-SelectedElement.clientWidth/2) + "px";
                 SelectedElement.style.top = (y-SelectedElement.clientHeight/2) + "px";
             }   
+            
+            document.onmouseup = () => {
+                document.onmousemove = (e) => {}
+                SelectedElement = null;
+                SetAllPortCoords()
+                document.onmouseup = () => {}
+            }
+        
         })
     
-        document.onmouseup = () => {
-            document.onmousemove = (e) => {}
-            SelectedElement = null;
-            SetAllPortCoords()
-        }
         
     }
 
