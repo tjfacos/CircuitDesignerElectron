@@ -1,4 +1,4 @@
-var componentArray = []
+var componentMap = new Map()
 
 var ComponentCounters = {
     "resistor": 1,
@@ -62,6 +62,8 @@ class Component {
 
         // console.log(this.portCoords)
         
+        this.SetConnections()
+
     }
 
     addToCanvas() {
@@ -228,7 +230,24 @@ class Component {
         return NewCoords;
     }
     
-    
+    SetConnections() {
+        console.log("Settings Connections...")
+        
+        this.connections = []
+        
+        componentMap.forEach((comp, id) => {
+            // If they are connected, and there are less than 2 connections already, and the component isn't already in the list
+            // Then add the id and have the component eval its own connections
+            if ( AreConnected(this, comp) && this.connections.length < 2 && !(this.connections.includes(id))) 
+            {
+                console.log(AreConnected(this, comp) && this.connections.length < 2 && !(this.connections.includes(id)))
+                console.log(`Connection with ${id} detected...`)
+                this.connections.push(id)
+                if (!comp.connections.includes(this.div.id)) comp.SetConnections()
+            }
+        })
+
+    }
 }
 
 class Cell extends Component {
@@ -263,15 +282,15 @@ const addComponent = (type) => {
     } else {
         component = new LoadComponent(type);
     }
-    componentArray.push(component);
+    componentMap.set(component.div.id, component);
 
-    console.log(componentArray);
+    console.log(componentMap);
 
 }
 
 
 const DeleteComponent = () => {
-    componentArray.forEach(async (item, index) => {
+    componentMap.forEach(async (item, key) => {
         if (item.selected) {
             
             console.log(`Deleting Component ${item.div.id}...`)
@@ -282,7 +301,11 @@ const DeleteComponent = () => {
                 await item.div.remove();
             }    
 
-            componentArray.splice(index, 1);
+            componentMap.delete(key);
+
+            componentMap.forEach((comp) => {
+                comp.SetConnections()
+            })
             
             console.log("Delete Procedure finished... ")
         }
@@ -290,7 +313,7 @@ const DeleteComponent = () => {
 }
 
 const RotateComponent = () => {
-    componentArray.forEach((item) => {
+    componentMap.forEach((item) => {
         if (item.selected) {
             item.rotate();
         }
@@ -299,8 +322,10 @@ const RotateComponent = () => {
 
 
 const SetAllPortCoords = () => {
-    componentArray.forEach((item) => {
-        item.setPortCoords()
+    console.log("Setting all Port Coords...")
+    componentMap.forEach((item) => {
+        // console.log(item.div.id)
+        if (!item.div.id.includes("wire")) item.setPortCoords()
     })
 }
 
@@ -435,6 +460,7 @@ const createWire = () => {
                 [x1, y1],
                 [x2, y2]
             ]
+            wire.SetConnections()
             console.log(wire.portCoords)
             wire.Realise(left, top, length, orientation)
         }
@@ -520,6 +546,24 @@ class Wire {
         this.div.remove()
         this.ports[0].remove()
         this.ports[1].remove()
+    }
+
+    SetConnections() {
+        console.log("Settings Connections...")
+        
+        this.connections = []
+        
+        componentMap.forEach((comp, id) => {
+            // If they are connected, and there are less than 2 connections already, and the component isn't already in the list
+            // Then add the id and have the component eval its own connections
+            if ( AreConnected(this, comp) && this.connections.length < 2 && !(this.connections.includes(id))) 
+            {
+                console.log(AreConnected(this, comp) && this.connections.length < 2 && !(this.connections.includes(id)))
+                console.log(`Connection with ${id} detected...`)
+                this.connections.push(id)
+                if (!comp.connections.includes(this.div.id)) comp.SetConnections()
+            }
+        })
     }
 
 }
