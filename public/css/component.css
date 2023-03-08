@@ -80,7 +80,7 @@
     border-radius: 50%;
     background-color: blue;
     /* transform: rotate(45deg); */
-    /* filter: opacity(50%); */
+    filter: opacity(80%);
     height: 15px;
     width: 15px;
     z-index: 5; 
@@ -97,7 +97,7 @@
     height: 10px;
     background-color: white;
     border-style: none;
-    border-radius: 0;
+    border-radius: 5px;
     transition: background-color 200ms ease, box-shadow 200ms ease;
     margin: 0px;
     padding: 0px;

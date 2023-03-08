@@ -439,7 +439,9 @@ const createWire = () => {
             document.onmousemove = () => {}
             document.onclick = () => {}
 
-            
+            wire.ports[0].style.display = "none"
+            wire.ports[1].style.display = "none"
+
             // Figure out where to draw the div
             
             var length, top, left, orientation

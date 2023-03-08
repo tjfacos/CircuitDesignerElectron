@@ -17,7 +17,7 @@
     <!-- Links -->
     <link rel="icon" href="../assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Electrolize">
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend">
     
   </head>
   <body onload="initialise()">
@@ -90,20 +90,31 @@
         You can rotate or delete elements using the control buttons or by pressing <b>'r'</b>or <b>'Delete'</b> on the keyboard
       </p>
     </dialog>
-
-
-
-    <div id="overlay"></div>
     
     <button class="control-button" id="help-button" onclick="openHelpDialog()">
       <img src="../assets/graphics/help.svg" alt="Show Help">
     </button>
-    <button class="control-button" id="rotate-button" onclick="RotateComponent()">
-      <img src="../assets/graphics/rotate.svg" alt="Rotate 90deg">
-    </button>
-    <button class="control-button" id="delete-button" onclick="DeleteComponent()">
-      <img src="../assets/graphics/delete.svg" alt="Delete Component">
-    </button>
+
+    <div id="editor-wizard">
+      
+      <h1 id="wizard-component-name">Test</h1>
+
+      <input type="number" name="Resistance" id="resistance-field" class="wizard-textfield" placeholder="Resistance (Ω)">
+      <input type="number" name="Potential Difference (EMF)" id="pd-field" class="wizard-textfield" placeholder="EMF (V)">
+      
+      
+      <button class="control-button" id="rotate-button" onclick="RotateComponent()">
+        <img src="../assets/graphics/rotate.svg" alt="Rotate 90deg">
+      </button>
+      
+      <button class="control-button" id="delete-button" onclick="DeleteComponent()">
+        <img src="../assets/graphics/delete.svg" alt="Delete Component">
+      </button>
+
+    </div>
+
+    <div id="overlay"></div>
+    
     
     
     <!-- JavaScript -->

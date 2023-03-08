@@ -1,11 +1,11 @@
 .control-button {
     
-    display: none;
+    /* display: none; */
 
     width: 60px;
     height: 60px;
     
-    position: fixed;
+    position: absolute;
     bottom: 0px;
     right: 0px;
     margin: 20px;
@@ -50,4 +50,57 @@
     top: 0px;
     right: 0px;
 
+}
+
+#editor-wizard {
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    
+    margin: 10px;
+    padding: 5px;
+    
+    width: 20%;
+    height: 40%;
+
+    background-color: var(--toolbarBackground);
+    border-radius: 10px;
+
+    font-family: 'Lexend', sans-serif;
+
+    transition: box-shadow 200ms ease;
+}
+
+#editor-wizard .control-button {
+    box-shadow: none;
+}
+
+#editor-wizard:hover {
+    box-shadow: 5px 5px black;
+}
+
+#editor-wizard h1 {
+    color: whitesmoke;
+    font-size: 40px;
+
+    margin: 10px;
+}
+
+.wizard-textfield {
+    background-color: transparent;
+    color: whitesmoke;
+    
+    border-color: var(--accent);
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: dashed;
+    
+    appearance: textfield;
+    outline: none;
+    
+    font-family: 'Lexend', sans-serif;
+
+    font-size: 20px;
+    margin: 10px;
+    padding: 5px;
 }

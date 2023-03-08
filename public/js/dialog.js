@@ -5,3 +5,7 @@ const openHelpDialog = () => {
 const closeHelpDialog = () => {
     document.getElementById("help-dialog").close()
 }
+
+const ToggleEditor = () => {
+    
+}
