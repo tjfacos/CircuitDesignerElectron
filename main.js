@@ -1,11 +1,9 @@
-// main.js
-
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
 const createWindow = () => {
-  // Create the browser window.
+
   const mainWindow = new BrowserWindow({
     icon: __dirname + '/assets/icons/favicon.ico',
     webPreferences: {
@@ -16,9 +14,9 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.maximize()
   mainWindow.loadFile('public/index.html')
+  mainWindow.setMenu(null)
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  
 }
 
 // This method will be called when Electron has finished
