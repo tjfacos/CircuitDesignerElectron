@@ -95,12 +95,12 @@
       <img src="../assets/graphics/help.svg" alt="Show Help">
     </button>
 
-    <div id="editor-wizard">
+    <div id="editor-wizard"class="hidden">
       
       <h1 id="wizard-component-name">Test</h1>
 
       <input type="number" name="Resistance" id="resistance-field" class="wizard-textfield" placeholder="Resistance (Ω)">
-      <input type="number" name="Potential Difference (EMF)" id="pd-field" class="wizard-textfield" placeholder="EMF (V)">
+      <input type="number" name="Potential Difference (EMF)" id="emf-field" class="wizard-textfield" placeholder="EMF (V)">
       
       
       <button class="control-button" id="rotate-button" onclick="RotateComponent()">
@@ -115,7 +115,7 @@
 
     <div id="overlay"></div>
     
-    
+    <!-- <button style="position: fixed; right: 0px; top: 100px" onclick="ToggleEditor()">ToggleWizard</button> -->
     
     <!-- JavaScript -->
     <script type="text/javascript" src="js/grid.js"></script>

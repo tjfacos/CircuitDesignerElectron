@@ -189,23 +189,20 @@ class Component {
         console.log("Adding controls...")
         
         var element = this.div;
-        var rotateBtn = document.getElementById("rotate-button");
-        var deleteBtn = document.getElementById("delete-button");
+        var wizard = document.getElementById("editor-wizard");
 
         // Add event listener to bring up controls on double-click
         element.addEventListener("dblclick", () => {
             console.log(`${element.id} selected...`)
             element.classList.toggle("selectedComponent")
-            rotateBtn.style.display = "block";
-            deleteBtn.style.display = "block";
+            ToggleEditor(this)
             this.selected = true;
         })
 
         document.addEventListener('click', (e) => {
-            if (!( element.contains(e.target) || rotateBtn.contains(e.target) || deleteBtn.contains(e.target)) && this.selected ) {
+            if (!( element.contains(e.target) || wizard.contains(e.target)) && this.selected ) {
                 element.classList.toggle("selectedComponent")
-                rotateBtn.style.display = "none";
-                deleteBtn.style.display = "none";
+                ToggleEditor(this)
                 this.selected = false
             }
         })
@@ -516,7 +513,7 @@ class Wire {
         
         var element = this.div;
         var [joint1, joint2] = this.ports
-        var deleteBtn = document.getElementById("delete-button");
+        var wizard = document.getElementById("editor-wizard");
 
         // Add event listener to bring up controls on double-click
         const clickHandler = () => {
@@ -524,7 +521,7 @@ class Wire {
             element.classList.toggle("selectedComponent")
             joint1.classList.toggle("selectedComponent")
             joint2.classList.toggle("selectedComponent")
-            deleteBtn.style.display = "block";
+            ToggleEditor(this)
             this.selected = true;
         }
         
@@ -533,11 +530,11 @@ class Wire {
         joint2.addEventListener("dblclick", clickHandler)
 
         document.addEventListener('click', (e) => {
-            if (!( element.contains(e.target) || deleteBtn.contains(e.target)) && this.selected ) {
+            if (!( element.contains(e.target) || wizard.contains(e.target)) && this.selected ) {
                 element.classList.toggle("selectedComponent")
                 joint1.classList.toggle("selectedComponent")
                 joint2.classList.toggle("selectedComponent")
-                deleteBtn.style.display = "none";
+                ToggleEditor(this)
                 this.selected = false
             }
         })

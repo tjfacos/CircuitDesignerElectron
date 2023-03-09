@@ -6,7 +6,7 @@ const closeHelpDialog = () => {
     document.getElementById("help-dialog").close()
 }
 
-const ToggleEditor = () => {
+const ToggleEditor = (component) => {
     // If the editor is not yet displayed, display it
     // Set the name to the selected component
     // Make sure emf is hidden unless component is a cell
@@ -14,7 +14,39 @@ const ToggleEditor = () => {
     // Make sure all values are numbers
 
     // If the editor is displayed, close it
-
     
+    let dialog = document.getElementById("editor-wizard")
+    let emfField = document.getElementById("emf-field")
+    let resistanceField = document.getElementById("resistance-field")
+    let rotateBtn = document.getElementById("rotate-button")   
+    let deleteBtn = document.getElementById("delete-button")
+
+    emfField.style.display = "block"
+    resistanceField.style.display = "block"
+    rotateBtn.style.display = "block"
+    deleteBtn.style.display = "block"
+    dialog.style.height = "40%"
+
+
+    if (dialog.classList.contains("hidden")) {
+        
+        // console.log("CALLED")
+
+        document.getElementById("wizard-component-name").innerText = component.div.id
+
+
+        if (!(component.div.classList.contains("cell"))) {
+           emfField.style.display = "none" 
+        }
+
+        if (component.div.classList.contains("wire")) {
+            resistanceField.style.display = "none"
+            dialog.style.height = "15%"
+            document.getElementById("rotate-button").style.display = "none"
+        }
+        
+    } 
+    
+    dialog.classList.toggle("hidden")
 
 }
