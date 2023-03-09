@@ -92,6 +92,11 @@
     margin: 10px;
 }
 
+#editor-wizard p {
+    color: red;
+    font-size: 20px;
+}
+
 .wizard-textfield {
     background-color: transparent;
     color: whitesmoke;

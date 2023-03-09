@@ -304,6 +304,8 @@ const DeleteComponent = () => {
                 comp.SetConnections()
             })
             
+            ToggleEditor()
+
             console.log("Delete Procedure finished... ")
         }
     })

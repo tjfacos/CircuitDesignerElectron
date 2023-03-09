@@ -99,9 +99,14 @@
       
       <h1 id="wizard-component-name">Test</h1>
 
-      <input type="number" name="Resistance" id="resistance-field" class="wizard-textfield" placeholder="Resistance (Ω)">
-      <input type="number" name="Potential Difference (EMF)" id="emf-field" class="wizard-textfield" placeholder="EMF (V)">
+      <input type="number" name="Resistance" id="resistance-field" class="wizard-textfield" placeholder="Resistance (Ω)"
+        oninput="setResistance()"
+      >
+      <input type="number" name="Potential Difference (EMF)" id="emf-field" class="wizard-textfield" placeholder="EMF (V)"
+        oninput="setEMF()"
+      >
       
+      <p id="wizard-text-output"></p>
       
       <button class="control-button" id="rotate-button" onclick="RotateComponent()">
         <img src="../assets/graphics/rotate.svg" alt="Rotate 90deg">

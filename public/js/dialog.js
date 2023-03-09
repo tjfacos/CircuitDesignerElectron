@@ -28,6 +28,9 @@ const ToggleEditor = (component) => {
     dialog.style.height = "40%"
 
 
+    resistanceField.value = ""
+    emfField.value = ""
+
     if (dialog.classList.contains("hidden")) {
         
         // console.log("CALLED")
@@ -37,16 +40,37 @@ const ToggleEditor = (component) => {
 
         if (!(component.div.classList.contains("cell"))) {
            emfField.style.display = "none" 
+           emfField.value = component.voltage
         }
 
         if (component.div.classList.contains("wire")) {
             resistanceField.style.display = "none"
             dialog.style.height = "15%"
             document.getElementById("rotate-button").style.display = "none"
+        } else {
+            resistanceField.value = component.resistance
         }
         
     } 
     
     dialog.classList.toggle("hidden")
 
+}
+
+const setResistance = () => {
+    let input = document.getElementById("resistance-field").value
+    if (document.getElementById("emf-field").value === "" || document.getElementById("resistance-field").value === "") {
+        document.getElementById("wizard-text-output").innerText = "Numbers only!!!"
+    } else {
+        document.getElementById("wizard-text-output").innerText = ""
+    }
+}
+
+const setEMF = () => {
+    let input = document.getElementById("emf-field").value
+    if (document.getElementById("emf-field").value === "" || document.getElementById("resistance-field").value === "") {
+        document.getElementById("wizard-text-output").innerText = "Numbers only!!!"
+    } else {
+        document.getElementById("wizard-text-output").innerText = ""
+    }
 }
