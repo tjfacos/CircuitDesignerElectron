@@ -1,6 +1,9 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, MenuItem } = require('electron')
 const path = require('path')
+
+
+// const { openHelpDialog } = require("./public/js/dialog.js")
 
 const createWindow = () => {
 
@@ -11,10 +14,22 @@ const createWindow = () => {
     }
   })
 
-  // and load the index.html of the app.
+  // Form menu
+
+  let menu = new Menu()
+  
+  helpItem = new MenuItem({
+    "click" : () => {
+      mainWindow.webContents.executeJavaScript("openHelpDialog()")
+    }, 
+    "label" : "Help"
+  })
+  
+  menu.append(helpItem)
+
   mainWindow.maximize()
   mainWindow.loadFile('public/index.html')
-  mainWindow.setMenu(null)
+  mainWindow.setMenu(menu)
 
   
 }
